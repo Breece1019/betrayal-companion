@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BetrayalAPI.Controllers
 {
     [ApiController]
-    [Route("api/betrayal/[controller]")]
+    [Route("betrayal/[controller]")]
     public class PlayerController : ControllerBase
     {
         [HttpGet("traits/{trait}")]
