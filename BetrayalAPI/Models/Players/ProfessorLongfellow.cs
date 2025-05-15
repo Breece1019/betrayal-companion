@@ -2,7 +2,7 @@ namespace BetrayalAPI.Models.Players;
 
 public class ProfessorLongfellow : IPlayer
 {
-    public string Name { get; set; } = "ProfessorLongfellow";
+    public string Name { get; set; } = "Professor Longfellow";
     public Trait Speed { get; set; } = new Trait
     {
         Values = [0, 2, 2, 4, 4, 5, 5, 6, 6],
