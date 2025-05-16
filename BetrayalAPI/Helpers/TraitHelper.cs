@@ -27,7 +27,7 @@ public static class TraitHelper
     public static int? IncrementTraitValue(IPlayer player, Traits traitName)
     {
         Trait trait = GetTrait(player, traitName);
-        if (trait.Pointer >= trait.Values.Length)
+        if (trait.Pointer >= trait.Values.Length - 1)
         {
             return null;
         }
@@ -38,7 +38,7 @@ public static class TraitHelper
     public static int? DecrementTraitValue(IPlayer player, Traits traitName)
     {
         Trait trait = GetTrait(player, traitName);
-        if (trait.Pointer >= trait.Values.Length)
+        if (trait.Pointer <= 0)
         {
             return null;
         }
