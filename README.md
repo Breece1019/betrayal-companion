@@ -1,2 +1,2 @@
 # betrayal-companion
-Betrayal at the House on the Hill website for stats overviews
+Betrayal at House on the Hill website for stats overviews
