@@ -9,11 +9,11 @@ namespace BetrayalAPI.Helpers;
 public static class PlayerHelper
 {
     // Cache to store player instances by name
-    private static readonly Dictionary<string, IPlayer> PlayerCache = [];
+    private static readonly Dictionary<string, IPlayer> PlayerCache = new(StringComparer.OrdinalIgnoreCase);
 
     public static IPlayer GetPlayer(string playerName)
     {
-        var playerClassName = playerName.Replace(" ", "").Replace("\"", "").ToLower();
+        var playerClassName = playerName.Replace(" ", "").Replace("\"", "");
         
         // Check if player already exists in cache
         if (PlayerCache.TryGetValue(playerClassName, out var existingPlayer))
