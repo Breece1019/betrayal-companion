@@ -1,5 +1,4 @@
 using BetrayalAPI.Helpers;
-using BetrayalAPI.Models.Players;
 using BetrayalAPI.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +11,7 @@ namespace BetrayalAPI.Controllers
         [HttpGet("traits")]
         public IActionResult GetTraitValue([FromQuery] TraitRequestModel traitRequest)
         {
-            IPlayer player = new ProfessorLongfellow();
+            var player = PlayerHelper.GetPlayer(traitRequest.PlayerName);
 
             var result = TraitHelper.GetTraitValue(player, traitRequest.Trait);
 
