@@ -11,8 +11,8 @@ public static class PlayerHelper
     {
         var assembly = Assembly.GetExecutingAssembly();
         var type = assembly.GetTypes()
-            .FirstOrDefault(t => typeof(IPlayer).IsAssignableFrom(t) &&
-                                string.Equals(t.Name, playerName.Replace(" ", ""), StringComparison.OrdinalIgnoreCase));
+            .FirstOrDefault(t => typeof(IPlayer).IsAssignableFrom(t)
+                && string.Equals(t.Name, playerName.Replace(" ", ""), StringComparison.OrdinalIgnoreCase));
         return (IPlayer)Activator.CreateInstance(type);
     }
 }
