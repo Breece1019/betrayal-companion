@@ -1,6 +1,7 @@
 using BetrayalAPI.Constants;
 using BetrayalAPI.Models.Players;
 using BetrayalAPI.Models.Request;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BetrayalAPI.Controllers
@@ -13,7 +14,7 @@ namespace BetrayalAPI.Controllers
         public IActionResult GetTraitValue([FromQuery] TraitRequestModel traitRequest)
         {
             IPlayer player = new ProfessorLongfellow();
-            int result = -1;
+            int? result = null;
 
             switch (traitRequest.Trait)
             {
@@ -33,7 +34,9 @@ namespace BetrayalAPI.Controllers
                     break;
             }
 
-            return Ok(new { Message = $"TODO: You want trait: {traitRequest.Trait} from player: {traitRequest.PlayerName}, which is: {result}" });
+            return result != null
+                    ? Ok($"You want trait: {traitRequest.Trait} from player: {traitRequest.PlayerName}, which is: {result}")
+                    : NotFound($"Unable to Locate trait: {traitRequest.Trait} for player: {traitRequest.PlayerName}");
         }
 
         // GET api/player
