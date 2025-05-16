@@ -1,4 +1,5 @@
-using BetrayalAPI.Models.Players;
+using BetrayalAPI.Helpers;
+using BetrayalAPI.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BetrayalAPI.Controllers
@@ -7,27 +8,16 @@ namespace BetrayalAPI.Controllers
     [Route("betrayal/[controller]")]
     public class PlayerController : ControllerBase
     {
-        [HttpGet("traits/{trait}")]
-        public IActionResult GetTraitValue(int trait)
+        [HttpGet("traits")]
+        public IActionResult GetTraitValue([FromQuery] TraitRequestModel traitRequest)
         {
-            return Ok(new { Message = $"TODO: You want trait number: {trait}" });
-        }
+            var player = PlayerHelper.GetPlayer(traitRequest.PlayerName);
 
-        // GET api/player
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(new { Message = "Hello, world!" });
-        }
+            var result = TraitHelper.GetTraitValue(player, traitRequest.Trait);
 
-        // GET api/player/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            IPlayer player = new ProfessorLongfellow();
-            player.Might.Pointer = 3;
-
-            return Ok(new { Message = $"You requested item {id}" });
+            return result != -1
+                    ? Ok($"You want trait: {traitRequest.Trait} from player: {traitRequest.PlayerName}, which is: {result}")
+                    : NotFound($"Unable to Locate trait: {traitRequest.Trait} for player: {traitRequest.PlayerName}");
         }
     }
 }
