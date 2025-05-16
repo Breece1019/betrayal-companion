@@ -1,11 +1,18 @@
 using System;
-using BetrayalAPI.Constants;
 using BetrayalAPI.Models.Players;
 
 namespace BetrayalAPI.Helpers;
 
 public static class TraitHelper
 {
+    public enum Traits
+    {
+        Speed,
+        Might,
+        Sanity,
+        Knowledge
+    };
+
     private static Trait GetTrait(IPlayer player, Traits trait)
     {
         Trait result = trait switch
