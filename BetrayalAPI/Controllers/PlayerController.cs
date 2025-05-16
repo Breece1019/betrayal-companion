@@ -12,7 +12,6 @@ namespace BetrayalAPI.Controllers
         public IActionResult GetTraitValue([FromQuery] TraitRequestModel traitRequest)
         {
             var player = PlayerHelper.GetPlayer(traitRequest.PlayerName);
-
             var result = TraitHelper.GetTraitValue(player, traitRequest.Trait);
 
             return result != -1
@@ -20,14 +19,26 @@ namespace BetrayalAPI.Controllers
                     : NotFound($"Unable to Locate trait: {traitRequest.Trait} for player: {traitRequest.PlayerName}");
         }
 
-        [HttpPost("traits")]
+        [HttpPost("traits/increment")]
         public IActionResult IncrementTraitValue([FromBody] TraitRequestModel traitRequest)
         {
             var player = PlayerHelper.GetPlayer(traitRequest.PlayerName);
+            var pointer = TraitHelper.IncrementTraitValue(player, traitRequest.Trait);
 
-            TraitHelper.IncrementTraitValue(player, traitRequest.Trait);
+            return pointer != null
+                    ? Ok(pointer)
+                    : BadRequest("Pointer cannot increment further");
+        }
 
-            return NoContent();
+        [HttpPost("traits/decrement")]
+        public IActionResult DecrementTraitValue([FromBody] TraitRequestModel traitRequest)
+        {
+            var player = PlayerHelper.GetPlayer(traitRequest.PlayerName);
+            var pointer = TraitHelper.DecrementTraitValue(player, traitRequest.Trait);
+
+            return pointer != null
+                    ? Ok(pointer)
+                    : BadRequest("Pointer cannot increment further");
         }
     }
 }

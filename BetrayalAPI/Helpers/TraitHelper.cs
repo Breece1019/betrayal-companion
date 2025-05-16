@@ -19,18 +19,30 @@ public static class TraitHelper
         return result;
     }
 
-    public static int GetTraitValue(IPlayer player, Traits trait)
+    public static int GetTraitValue(IPlayer player, Traits traitName)
     {
-        return GetTrait(player, trait).CurrentValue;
+        return GetTrait(player, traitName).CurrentValue;
     }
 
-    public static int IncrementTraitValue(IPlayer player, Traits trait)
+    public static int? IncrementTraitValue(IPlayer player, Traits traitName)
     {
-        return ++GetTrait(player, trait).Pointer;
+        Trait trait = GetTrait(player, traitName);
+        if (trait.Pointer >= trait.Values.Length)
+        {
+            return null;
+        }
+        
+        return ++trait.Pointer;
     }
     
-    public static int DecrementTraitValue(IPlayer player, Traits trait)
+    public static int? DecrementTraitValue(IPlayer player, Traits traitName)
     {
-        return ++GetTrait(player, trait).Pointer;
+        Trait trait = GetTrait(player, traitName);
+        if (trait.Pointer >= trait.Values.Length)
+        {
+            return null;
+        }
+        
+        return --trait.Pointer;
     }
 }
