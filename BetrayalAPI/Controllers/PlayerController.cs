@@ -19,5 +19,15 @@ namespace BetrayalAPI.Controllers
                     ? Ok($"You want trait: {traitRequest.Trait} from player: {player.Name}, which is: {result}")
                     : NotFound($"Unable to Locate trait: {traitRequest.Trait} for player: {traitRequest.PlayerName}");
         }
+
+        [HttpPost("traits")]
+        public IActionResult IncrementTraitValue([FromBody] TraitRequestModel traitRequest)
+        {
+            var player = PlayerHelper.GetPlayer(traitRequest.PlayerName);
+
+            TraitHelper.IncrementTraitValue(player, traitRequest.Trait);
+
+            return NoContent();
+        }
     }
 }

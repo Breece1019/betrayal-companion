@@ -1,3 +1,4 @@
+using System;
 using BetrayalAPI.Constants;
 using BetrayalAPI.Models.Players;
 
@@ -7,10 +8,17 @@ public static class TraitHelper
 {
     public static int GetTraitValue(IPlayer player, Traits trait)
     {
-        var traitProperty = typeof(IPlayer).GetProperty(trait.ToString());
-        var traitObject = traitProperty?.GetValue(player);
-        var currentValueProperty = traitObject?.GetType().GetProperty(nameof(Trait.CurrentValue));
+        var traitProperty = player.GetType().GetProperty(trait.ToString());
+        var traitObject = (Trait)traitProperty?.GetValue(player);
 
-        return (int)(currentValueProperty?.GetValue(traitObject) ?? -1);
+        return traitObject.CurrentValue;
+    }
+
+    public static void IncrementTraitValue(IPlayer player, Traits trait)
+    {
+        var traitProperty = player.GetType().GetProperty(trait.ToString());
+        var traitObject = (Trait)traitProperty?.GetValue(player);
+
+        traitObject.Pointer++;
     }
 }
