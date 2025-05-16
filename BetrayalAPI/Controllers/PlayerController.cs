@@ -16,7 +16,7 @@ namespace BetrayalAPI.Controllers
             var result = TraitHelper.GetTraitValue(player, traitRequest.Trait);
 
             return result != -1
-                    ? Ok($"You want trait: {traitRequest.Trait} from player: {traitRequest.PlayerName}, which is: {result}")
+                    ? Ok($"You want trait: {traitRequest.Trait} from player: {player.Name}, which is: {result}")
                     : NotFound($"Unable to Locate trait: {traitRequest.Trait} for player: {traitRequest.PlayerName}");
         }
     }
