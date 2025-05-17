@@ -1,4 +1,4 @@
-using BetrayalAPI.Constants;
+using static BetrayalAPI.Helpers.TraitHelper;
 
 namespace BetrayalAPI.Models.Request;
 
