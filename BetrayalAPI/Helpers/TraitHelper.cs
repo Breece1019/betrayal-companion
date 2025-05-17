@@ -21,7 +21,7 @@ public static class TraitHelper
             Traits.Might => player.Might,
             Traits.Sanity => player.Sanity,
             Traits.Knowledge => player.Knowledge,
-            _ => throw new ArgumentException($"Unknown trait: {trait}", nameof(trait)),
+            _ => null
         };
         return result;
     }
@@ -34,22 +34,31 @@ public static class TraitHelper
     public static int? IncrementTraitValue(IPlayer player, Traits traitName)
     {
         Trait trait = GetTrait(player, traitName);
-        if (trait.Pointer >= trait.Values.Length - 1)
+        if (trait is null || trait.Pointer >= trait.Values.Length - 1)
         {
             return null;
         }
-        
+
         return ++trait.Pointer;
     }
-    
+
     public static int? DecrementTraitValue(IPlayer player, Traits traitName)
     {
         Trait trait = GetTrait(player, traitName);
-        if (trait.Pointer <= 0)
+        if (trait is null || trait.Pointer <= 0)
         {
             return null;
         }
-        
+
         return --trait.Pointer;
+    }
+
+    public static int? RollTrait(IPlayer player, Traits traitName)
+    {
+        Trait trait = GetTrait(player, traitName);
+
+        return trait is null
+            ? null
+            : DiceHelper.RollDice(trait.CurrentValue);
     }
 }
