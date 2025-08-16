@@ -6,7 +6,7 @@ namespace BetrayalAPI.Controllers
     [Route("betrayal/[controller]")]
     public class HealthCheck : ControllerBase
     {
-        [HttpGet("health")]
+        [HttpGet("healthcheck")]
         public IActionResult Heartbeat()
         {
             return Ok("beat");
