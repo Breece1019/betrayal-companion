@@ -10,8 +10,13 @@ public static class DiceHelper
 
     public static int RollDice(int numDice)
     {
-        var maxValue = (maxDieValue * numDice) + 1;
-        return rnd.Next(maxValue);
+        var sum = 0;
+        for (var i = 0; i < numDice; i++)
+        {
+            sum += rnd.Next(maxDieValue + 1);
+        }
+
+        return sum;
     }
 
     public static int HauntRoll()
